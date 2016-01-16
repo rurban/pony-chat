@@ -77,7 +77,7 @@ actor Session
 interface LogPrinter 
   be print(message:String)
 
-trait Storage tag
+trait tag Storage
   be push(message:String)
 
   be print(printer:LogPrinter tag)
@@ -96,8 +96,6 @@ actor MemoryStorage is Storage
 
   be print(printer:LogPrinter tag) =>
     _env.out.print("Printing log")
-    try
-      for message in log.values() do
-        printer.print(message)
-      end
+    for message in log.values() do
+      printer.print(message)
     end
